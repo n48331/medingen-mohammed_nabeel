@@ -16,9 +16,11 @@ Handles API requests and database operations for Medingen.
     Create a `.env` file in the root directory and add the following:
     ```
     SECRET_KEY=your-secret-key
-    SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://<user>:<password>@localhost/medingen_new_db
+    SQLALCHEMY_DATABASE_URI=mysql+mysqlconnector://<user>:<password>@localhost/medingen_db
     JWT_SECRET_KEY=your-jwt-secret-key
     ```
+
+    Example data can be found in `.env.local`.
 
 3. Update `config.py`:
     ```python
@@ -57,6 +59,35 @@ Handles API requests and database operations for Medingen.
 
 ## **Frontend**
 Manages UI components and interactions.
+### **Setup**
+
+1. Install dependencies:
+    ```bash
+    npm install
+    ```
+    Or, if you prefer `pnpm`:
+    ```bash
+    pnpm install
+    ```
+
+2. Start the development server:
+    ```bash
+    npm start
+    ```
+    Or, with `pnpm`:
+    ```bash
+    pnpm start
+    ```
+
+3. Build the application for production:
+    ```bash
+    npm run build
+    ```
+    Or, with `pnpm`:
+    ```bash
+    pnpm run build
+    ```
+
 
 ### **Context API**
 #### `frontend/src/context/ProductContext.js`
