@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/Footer.module.css';
 
 const Footer = () => {
   const footerData = {
@@ -41,23 +42,27 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white py-8">
-      <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <div className="text-2xl font-bold text-black flex flex-col items-center gap-5 w-2/3 mx-auto text-center">
-            <img src={footerData.logo.src} className="w-14" alt={footerData.logo.alt} />
-            <h2 className="text-white">{footerData.logo.title}</h2>
-            <p className="text-gray-400">{footerData.logo.description}</p>
-          </div>
+    <footer className={styles.footer}>
+      <div className={styles["footer-container"]}>
+        <div className={styles["footer-logo-section"]}>
+          <img
+            src={footerData.logo.src}
+            className={styles["footer-logo"]}
+            alt={footerData.logo.alt}
+          />
+          <h2 className={styles["footer-logo-title"]}>{footerData.logo.title}</h2>
+          <p className={styles["footer-logo-description"]}>
+            {footerData.logo.description}
+          </p>
         </div>
         {footerData.sections.map((section, index) => (
           <div key={index}>
-            <h3 className="text-lg font-semibold mb-4">{section.title}</h3>
+            <h3 className={styles["footer-section-title"]}>{section.title}</h3>
             {section.links.map((link, linkIndex) => (
               <a
                 key={linkIndex}
                 href={link.href}
-                className="block text-gray-400 hover:text-white mb-2"
+                className={styles["footer-link"]}
               >
                 {link.text}
               </a>
@@ -65,7 +70,7 @@ const Footer = () => {
           </div>
         ))}
       </div>
-      <div className="text-center text-gray-400 mt-8">
+      <div className={styles["footer-copyright"]}>
         {footerData.copyright}
       </div>
     </footer>

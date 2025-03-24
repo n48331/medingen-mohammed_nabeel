@@ -1,15 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useProduct } from "../context/ProductContext";
+import styles from "../styles/CompareMedicine.module.css";
 
 const CompareMedicine = () => {
   const { allProducts } = useProduct();
   return (
-    <section className=" rounded-lg mb-8 m-auto">
-      <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-        Compare Medicine
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
+    <section className={styles["compare-medicine-section"]}>
+      <h2 className={styles["compare-medicine-title"]}>Compare Medicine</h2>
+      <p  className={styles["compare-medicine-subtitle"]}>
+      Compare the price, composition, and reviews of the following medicines to make an informed decision.
+      </p>
+      <div className={styles["compare-medicine-grid"]}>
         {allProducts.map((medicine, index) => (
           <motion.div
             key={index}
@@ -30,65 +32,43 @@ const Card = ({ medicine }) => {
   const discount = price * (offerpercent / 100);
   const discountedPrice = Math.round(price - discount);
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="border border-gray-100 rounded-2xl shadow-sm bg-white p-4 hover:bg-gray-50 transition duration-200"
-    >
-      {/* Image Section */}
-      <div className="bg-purple-50 rounded-lg p-6 flex justify-center items-center">
-        <div className="bg-purple-50 p-8">
+    <motion.div whileHover={{ scale: 1.05 }} className={styles.card}>
+      <div className={styles["card-image-container"]}>
+        <div className={styles["card-image-wrapper"]}>
           <img
-            className="rounded-t-lg bg-purple-50"
+            className={styles["card-image"]}
             src={"/medicine3.png"}
             alt={medicine.name}
           />
         </div>
       </div>
-
-      {/* Content Section */}
-      <div className="p-4 flex flex-col gap-2">
-        {/* Title */}
-        <h5 className="mb-1 text-xl font-bold tracking-tight text-gray-900">
-          {medicine.name}
-        </h5>
-
-        {/* Manufacturer */}
-        <p className="mb-2 text-sm font-normal text-gray-400">
-          By {medicine.company}
-        </p>
-
-        {/* Generic Name */}
-        <div className="mb-2">
-          <p className="text-xs font-semibold text-black">Generic Name:</p>
-          <p className="text-sm text-gray-400">{medicine.othername}</p>
+      <div className={styles["card-content"]}>
+        <h5 className={styles["card-title"]}>{medicine.name}</h5>
+        <p className={styles["card-manufacturer"]}>By {medicine.company}</p>
+        <div className={styles["card-generic-name"]}>
+          <p className={styles["card-generic-name-label"]}>Generic Name:</p>
+          <p>{medicine.othername}</p>
         </div>
-
-        {/* Pricing */}
-
-        {/* Chemical Formula */}
-
-        <div className="flex items-center mb-3 bg-gray-200 py-1 px-2 rounded-lg justify-between">
-          <p className="ml-2 text-sm text-gray-500 ">{offerpercent}% Off</p>
-          <p className="text-lg font-bold text-gray-900">Rs. {price}</p>
+        <div className={styles["card-pricing"]}>
+          <p className={styles["card-offer"]}>{offerpercent}% Off</p>
+          <p className={styles["card-price"]}>Rs. {price}</p>
         </div>
-        <div className="mb-3">
-          <p className="text-xs font-semibold text-gray-500 ">
-            Chemical Formation:
-          </p>
-          <p className="text-sm text-gray-400">{medicine.chemicalformula}</p>
+        <div>
+          <p className={styles["card-chemical-label"]}>Chemical Formation:</p>
+          <p className={styles["card-chemical"]}>{medicine.chemicalformula}</p>
         </div>
-        <div className="mb-3">
-          <div className="flex flex-col gap-1">
-            <p className="text-xs font-semibold text-gray-500 ">Rating & Review:</p>
-            <div className="flex items-center gap-4">
-              <div className="flex gap-2">
+        <div>
+          <div className={styles["card-rating-container"]}>
+            <p className={styles["card-rating-label"]}>Rating & Review:</p>
+            <div className={styles["card-rating"]}>
+              <div className={styles["card-stars"]}>
                 {[...Array(5)].map((_, index) => (
                   <svg
                     key={index}
-                    className={`w-4 h-4 ${
+                    className={`${styles["card-star"]} ${
                       index < Math.round(medicine.reviews[0].rating)
-                        ? "text-yellow-400"
-                        : "text-gray-300"
+                        ? styles["card-star--yellow"]
+                        : styles["card-star--gray"]
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -98,12 +78,12 @@ const Card = ({ medicine }) => {
                   </svg>
                 ))}
               </div>
-              <span className="text-xs bg-gray-300 px-2 py-[2px] w-8 text-center rounded-sm">
+              <span className={styles["card-rating-value"]}>
                 {medicine.reviews[0].rating}
               </span>
             </div>
           </div>
-          <p className="text-xs text-gray-600 mt-1">
+          <p className={styles["card-comment"]}>
             "{medicine.reviews[0].comment} "
           </p>
         </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useProduct } from "../context/ProductContext";
+import styles from "../styles/ProductDetails.module.css";
+
 const ProductDetails = () => {
   const { product, allProducts } = useProduct();
 
@@ -14,45 +16,51 @@ const ProductDetails = () => {
   };
 
   return (
-    <section className="flex flex-col lg:flex-row gap-6 p-4">
+    <section className={styles["product-details-section"]}>
       <motion.div
-        className="p-6 rounded-lg mb-8 flex flex-col gap-4 lg:w-2/3 "
+        className={styles["details-container"]}
         initial={{ opacity: 0, x: -50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="bg-gray-50 text-center p-4 rounded-lg">
+        <div className={styles["details-header"]}>
           <h3>Medicine Details</h3>
         </div>
-        <div className="bg-gray-50 p-4 rounded-lg text-left flex flex-col gap-4">
-          <div>
-            <h4 className="font-bold my-2">About {medicineDetails.name}</h4>
+        <div className={styles["details-content"]}>
+          <div className={styles["details-subsection"]}>
+            <h4 className={styles["details-title"]}>
+              About {medicineDetails.name}
+            </h4>
             <p>{medicineDetails.description}</p>
           </div>
-          <div>
-            <h4 className="font-bold my-2">Uses of {medicineDetails.name}</h4>
-            <ul className="list-disc list-inside pl-2">
+          <div className={styles["details-subsection"]}>
+            <h4 className={styles["details-title"]}>
+              Uses of {medicineDetails.name}
+            </h4>
+            <ul className={styles["details-list"]}>
               {medicineDetails.uses.map((use, index) => (
                 <li key={index}>{use}</li>
               ))}
             </ul>
           </div>
-          <div>
-            <h4 className="font-bold my-2">How {medicineDetails.name} Works</h4>
-            <ul className="list-disc list-inside pl-2">
+          <div className={styles["details-subsection"]}>
+            <h4 className={styles["details-title"]}>
+              How {medicineDetails.name} Works
+            </h4>
+            <ul className={styles["details-list"]}>
               {medicineDetails.howItWorks.map((work, index) => (
                 <li key={index}>{work}</li>
               ))}
             </ul>
           </div>
-          <div className="flex flex-col gap-2">
-            <h4 className="font-bold my-2">
+          <div className={styles["details-subsection"]}>
+            <h4 className={styles["details-title"]}>
               Side Effects of {medicineDetails.name}
             </h4>
-            <p className="text-sm pl-2 bg-gray-300 w-fit p-1 rounded-md">
+            <p className={styles["side-effects-note"]}>
               Common side effects of {medicineDetails.name} include:
             </p>
-            <ul className="list-disc list-inside pl-2">
+            <ul className={styles["details-list"]}>
               {medicineDetails.sideEffects.map((effect, index) => (
                 <li key={index}>{effect}</li>
               ))}
@@ -68,13 +76,13 @@ const ProductDetails = () => {
 const GenericMedicine = ({ allProducts }) => {
   return (
     <motion.div
-      className="p-6 rounded-lg mb-8 lg:w-1/3 flex flex-col gap-4 "
+      className={styles["generic-medicine-container"]}
       initial={{ opacity: 0, x: 50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h2>Generic medicine Alternative</h2>
-      <div className="flex flex-col gap-2">
+      <h2>Generic Medicine Alternative</h2>
+      <div className={styles["generic-medicine-list"]}>
         {allProducts.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
@@ -82,40 +90,41 @@ const GenericMedicine = ({ allProducts }) => {
     </motion.div>
   );
 };
+
 const ProductCard = ({ product }) => {
   const { offerpercent, price } = product;
   const discount = price * (offerpercent / 100);
   const discountedPrice = Math.round(price - discount);
   return (
     <motion.div
-      className="flex items-center justify-between bg-gray-50 p-4 rounded-lg border w-full"
+      className={styles["product-card"]}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.3 }}
     >
-      <div className="flex items-center gap-4">
+      <div className={styles["product-card-content"]}>
         <img
           src="/medicine.jpg"
           alt="Medicine"
-          className="w-[90px] rounded-md "
+          className={styles["product-card-image"]}
         />
-        <div>
-          <h3 className="font-semibold text-base">{product.name}</h3>
-          <p className="text-sm text-gray-500">{product.company}</p>
-          <p className="text-xs text-gray-400">{product.othername}</p>
-          <div className="text-left flex gap-2 items-center">
-            <p className="text-gray-500 line-through text-xs">Rs. {price}</p>
-            <p className="font-bold text-base text-green-600">
+        <div className={styles["product-card-info"]}>
+          <h3 className={styles["product-card-title"]}>{product.name}</h3>
+          <p className={styles["product-card-company"]}>{product.company}</p>
+          <p className={styles["product-card-generic"]}>{product.othername}</p>
+          <div className={styles["product-card-pricing"]}>
+            <p className={styles["product-card-original-price"]}>
+              Rs. {price}
+            </p>
+            <p className={styles["product-card-discounted-price"]}>
               Rs. {discountedPrice}
             </p>
-            <p className="text-xs bg-green-50 px-2 py-1 rounded-full text-green-600">
+            <p className={styles["product-card-offer"]}>
               {offerpercent}% less Price
             </p>
           </div>
         </div>
       </div>
-      <button className="text-black px-6 py-2 rounded-full border border-black">
-        + Add
-      </button>
+      <button className={styles["product-card-button"]}>+ Add</button>
     </motion.div>
   );
 };

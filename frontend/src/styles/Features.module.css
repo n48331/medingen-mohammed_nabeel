@@ -1,0 +1,48 @@
+/* Section styles */
+.features-section {
+    background-color: #ffffff; /* bg-white */
+    padding: 24px; /* p-6 */
+    margin-bottom: 32px; /* mb-8 */
+  }
+  
+  /* Grid container styles */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* grid-cols-1 */
+    gap: 16px; /* gap-4 */
+    padding: 32px; /* p-8 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    border-radius: 8px; /* rounded-lg */
+  }
+  
+  /* Responsive grid adjustments */
+  @media (min-width: 640px) { /* sm: breakpoint */
+    .features-grid {
+      grid-template-columns: 1fr 1fr; /* sm:grid-cols-2 */
+    }
+  }
+  
+  @media (min-width: 1024px) { /* lg: breakpoint */
+    .features-grid {
+      grid-template-columns: 1fr 1fr 1fr; /* lg:grid-cols-3 */
+    }
+  }
+  
+  /* Card styles */
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* gap-4 */
+    text-align: center;
+  }
+  
+  /* Image styles */
+  .feature-card__image {
+    width: 64px; /* w-16 */
+  }
+  
+  /* Text styles */
+  .feature-card__title {
+    text-transform: capitalize; /* capitalize */
+  }

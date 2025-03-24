@@ -1,6 +1,7 @@
 import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { motion } from "framer-motion";
+import styles from "../styles/Header.module.css";
 
 const Header = () => {
   const navItems = [
@@ -13,66 +14,81 @@ const Header = () => {
   const [activeNav, setActiveNav] = React.useState("/");
 
   return (
-    <header className="py-4 container mx-auto flex flex-col gap-8">
-      {/* Top Section */}
+    <header className={styles.header}>
       <motion.div
-        className="px-4 flex justify-between items-center"
+        className={styles["header-top"]}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="text-2xl font-bold text-black flex items-center gap-5">
-          <img src="/logo.png" className="w-14" alt="Finalmiglogo" />
+        <div className={styles["header-logo"]}>
+          <img
+            src="/logo.png"
+            className={styles["header-logo-image"]}
+            alt="Finalmiglogo"
+          />
           <h2>Medingen</h2>
         </div>
-        <div className="hidden md:flex gap-6 items-center">
+        <div className={styles["header-nav"]}>
           {navItems.map((item, index) => (
             <motion.a
               key={index}
-              className={`flex items-center gap-1 py-[1px] px-[10px] rounded-full ${
-                activeNav === item.href ? "bg-gray-200" : ""
+              className={`${styles["header-nav-item"]} ${
+                activeNav === item.href ? styles["header-nav-item--active"] : ""
               }`}
               href={item.href}
               onClick={() => setActiveNav(item.href)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <img className="w-8 h-8" alt={item.alt} src={item.icon} />
-              <div className="text-[10px] font-light mt-1 text-center">{item.text}</div>
+              <img
+                className={styles["header-nav-icon"]}
+                alt={item.alt}
+                src={item.icon}
+              />
+              <div className={styles["header-nav-text"]}>{item.text}</div>
             </motion.a>
           ))}
         </div>
         <div>
-          <img className="w-8 h-8" src="/cart.svg" alt="Cart" />
+          <img
+            className={styles["header-cart"]}
+            src="/cart.svg"
+            alt="Cart"
+          />
         </div>
       </motion.div>
 
-      {/* Bottom Section */}
       <motion.div
-        className="flex items-center gap-2 px-4"
+        className={styles["header-bottom"]}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <IoIosArrowBack />
-        <p className="text-sm font-bold">Paracetamol/acetaminophen</p>
+        <IoIosArrowBack className={styles["header-back-icon"]} />
+        <p className={styles["header-back-text"]}>Paracetamol/acetaminophen</p>
       </motion.div>
 
-      {/* Mobile Navigation */}
-      <div className="flex md:hidden justify-around items-center bg-gray-100 py-2 fixed bottom-0 left-0 right-0">
+      <div className={styles["header-mobile-nav"]}>
         {navItems.map((item, index) => (
           <motion.a
             key={index}
-            className={`flex flex-col items-center ${
-              activeNav === item.href ? "text-blue-500" : "text-gray-500"
+            className={`${styles["header-mobile-nav-item"]} ${
+              activeNav === item.href
+                ? styles["header-mobile-nav-item--active"]
+                : styles["header-mobile-nav-item--inactive"]
             }`}
             href={item.href}
             onClick={() => setActiveNav(item.href)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
-            <img className="w-6 h-6" alt={item.alt} src={item.icon} />
-            <div className="text-[10px] font-light">{item.text}</div>
+            <img
+              className={styles["header-mobile-nav-icon"]}
+              alt={item.alt}
+              src={item.icon}
+            />
+            <div className={styles["header-mobile-nav-text"]}>{item.text}</div>
           </motion.a>
         ))}
       </div>

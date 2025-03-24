@@ -1,0 +1,79 @@
+.faq-section {
+    background-color: #f9fafb;
+    padding: 24px;
+    border-radius: 8px;
+    margin-bottom: 32px;
+  }
+  
+  .faq-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+  
+  @media (min-width: 768px) {
+    .faq-title {
+      font-size: 24px;
+    }
+  }
+  
+  .faq-product-name {
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+  }
+  
+  .faq-button {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1f2937;
+    font-weight: 500;
+  }
+  
+  .faq-question {
+    font-size: 14px;
+  }
+  
+  @media (min-width: 768px) {
+    .faq-question {
+      font-size: 16px;
+    }
+  }
+  
+  .faq-arrow {
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-arrow--rotated {
+    transform: rotate(180deg);
+  }
+  
+  .faq-answer-container {
+    overflow: hidden;
+  }
+  
+  .faq-answer {
+    color: #4b5563;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
+  @media (min-width: 768px) {
+    .faq-answer {
+      font-size: 16px;
+    }
+  }

@@ -2,10 +2,10 @@ import React from 'react';
 import { RiArrowDownSLine } from "react-icons/ri";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useProduct } from "../context/ProductContext";
+import styles from "../styles/FAQSection.module.css";
+
 const FAQSection = () => {
-    const { product } = useProduct();
-
-
+  const { product } = useProduct();
   const [activeIndex, setActiveIndex] = React.useState(null);
 
   const toggleFAQ = (index) => {
@@ -13,22 +13,22 @@ const FAQSection = () => {
   };
 
   return (
-    <section className="bg-gray-50 p-6 rounded-lg mb-8 ">
-      <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 ">
+    <section className={styles["faq-section"]}>
+      <h2 className={styles["faq-title"]}>
         Frequently Asked Questions for {product.name}
       </h2>
-      <h3 className='mb-2 font-bold'>{product.name}</h3>
-      <div className="space-y-4">
+      <h3 className={styles["faq-product-name"]}>{product.name}</h3>
+      <div className={styles["faq-list"]}>
         {product.faq.map((faq, index) => (
-          <div key={index} className="border-b border-gray-200 pb-2">
+          <div key={index} className={styles["faq-item"]}>
             <button
               onClick={() => toggleFAQ(index)}
-              className="w-full text-left flex justify-between items-center text-gray-800 font-medium"
+              className={styles["faq-button"]}
             >
-              <span className="text-sm md:text-base">{faq.question}</span>
-              <RiArrowDownSLine 
-                className={`transform transition-transform ${
-                  activeIndex === index ? "rotate-180" : ""
+              <span className={styles["faq-question"]}>{faq.question}</span>
+              <RiArrowDownSLine
+                className={`${styles["faq-arrow"]} ${
+                  activeIndex === index ? styles["faq-arrow--rotated"] : ""
                 }`}
               />
             </button>
@@ -36,12 +36,12 @@ const FAQSection = () => {
               {activeIndex === index && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
+                  animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
+                  className={styles["faq-answer-container"]}
                 >
-                  <p className="text-gray-600 mt-2 text-sm md:text-base">{faq.answer}</p>
+                  <p className={styles["faq-answer"]}>{faq.answer}</p>
                 </motion.div>
               )}
             </AnimatePresence>

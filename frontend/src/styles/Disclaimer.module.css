@@ -1,0 +1,30 @@
+.disclaimer-section {
+    background-color: #ffffff;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .disclaimer-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+  
+  @media (min-width: 640px) {
+    .disclaimer-title {
+      font-size: 24px;
+    }
+  }
+  
+  .disclaimer-text {
+    font-size: 14px;
+    color: #4b5563;
+    line-height: 1.625;
+  }
+  
+  @media (min-width: 640px) {
+    .disclaimer-text {
+      font-size: 16px;
+    }
+  }
