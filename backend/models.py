@@ -1,14 +1,10 @@
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db  # Import from extensions
 
-db = SQLAlchemy()
-
-# User model for authentication
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
 
-# Product model
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -16,40 +12,38 @@ class Product(db.Model):
     othername = db.Column(db.String(100))
     chemicalformula = db.Column(db.String(100))
     company = db.Column(db.String(100))
-    offerpercent = db.Column(db.Integer)
+    offerpercent = db.Column(db.Float)
     image_url = db.Column(db.String(255))
     description = db.Column(db.Text)
-    uses = db.relationship('ProductUse', backref='product', lazy=True)  # Relationship to ProductUse
-    side_effects = db.relationship('ProductSideEffect', backref='product', lazy=True)  
-    workings = db.relationship('ProductWorkings', backref='product', lazy=True)
-    reviews = db.relationship('Review', backref='product', lazy=True) 
-    faqs = db.relationship('Faq', backref='product', lazy=True)
+    uses = db.relationship('ProductUse', backref='product', lazy='joined')
+    side_effects = db.relationship('ProductSideEffect', backref='product', lazy='joined')
+    workings = db.relationship('ProductWorkings', backref='product', lazy='joined')
+    reviews = db.relationship('Review', backref='product', lazy='joined')
+    faqs = db.relationship('Faq', backref='product', lazy='joined')
 
-# ProductUse model (separate table for uses)
 class ProductUse(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    use_text = db.Column(db.Text, nullable=False)  # Store each use as a string
+    use_text = db.Column(db.Text, nullable=False)
 
-# ProductSideEffect model (separate table for side effects)
 class ProductSideEffect(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    side_effect_text = db.Column(db.Text, nullable=False)  # Store each side effect as a string
+    side_effect_text = db.Column(db.Text, nullable=False)
 
 class ProductWorkings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    working_text = db.Column(db.Text, nullable=False)  
-# Review model (unchanged)
+    working_text = db.Column(db.Text, nullable=False)
+
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     rating = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text)
-    
+
 class Faq(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    question = db.Column(db.String(255), nullable=False)
+    question = db.Column(db.Text, nullable=False)
     answer = db.Column(db.Text, nullable=False)

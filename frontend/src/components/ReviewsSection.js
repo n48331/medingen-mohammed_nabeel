@@ -4,12 +4,12 @@ import { useProduct } from "../context/ProductContext";
 import styles from "../styles/ReviewsSection.module.css";
 
 const ReviewsSection = () => {
-  const { reviews } = useProduct();
+  const { product } = useProduct();
   return (
     <section className={styles["reviews-section"]}>
       <h2 className={styles["reviews-title"]}>Ratings & Reviews</h2>
       <div className={styles["reviews-list"]}>
-        {reviews.map((review, index) => (
+        {product.reviews.map((review, index) => (
           <motion.div
             key={index}
             className={styles["review-item"]}

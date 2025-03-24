@@ -1,13 +1,13 @@
 from app import app, db
 from models import User, Product, ProductUse, ProductSideEffect, Review, ProductWorkings, Faq
 from werkzeug.security import generate_password_hash
-
+# db name: medingen_db
 def seed_database():
     with app.app_context():
         # Clear existing data and recreate tables
         db.drop_all()
         db.create_all()
-
+ 
         # Seed users table
         user = User(
             username='admin',

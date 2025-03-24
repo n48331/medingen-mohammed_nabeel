@@ -19,7 +19,7 @@ const FAQSection = () => {
       </h2>
       <h3 className={styles["faq-product-name"]}>{product.name}</h3>
       <div className={styles["faq-list"]}>
-        {product.faq.map((faq, index) => (
+        {product.faqs.map((faq, index) => (
           <div key={index} className={styles["faq-item"]}>
             <button
               onClick={() => toggleFAQ(index)}

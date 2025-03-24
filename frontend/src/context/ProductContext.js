@@ -1,71 +1,54 @@
-import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import axios from 'axios';
-import { AuthContext } from './AuthContext';
 
-export const ProductContext = createContext();
+const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const { token } = useContext(AuthContext);
   const [product, setProduct] = useState(null);
   const [allProducts, setAllProducts] = useState([]);
-  const [uses, setUses] = useState([]);
-  const [sideEffects, setSideEffects] = useState([]);
-  const [workings, setWorkings] = useState([]);
-  const [reviews, setReviews] = useState([]);
-  const [faq, setFaq] = useState([]);
-  const [loading, setLoading] = useState(true); // Start as true to show loading initially
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token') || '');
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
 
   const fetchProductData = useCallback(async (productId) => {
-    if (!token) {
-      setError('No authentication token available');
-      setLoading(false);
-      return;
-    }
-
+    setLoading(true);
     try {
-      setLoading(true);
+      const response = await axios.get(`http://localhost:5000/api/products/${productId}`, config);
+      setProduct(response.data);
+      const allProductsResponse = await axios.get('http://localhost:5000/api/products', config);
+      setAllProducts(allProductsResponse.data);
       setError(null);
-      const config = { headers: { Authorization: `Bearer ${token}` } };
-
-      console.log('Making API requests...');
-      const [productRes, allProductsRes, usesRes, sideEffectsRes, workingsRes, reviewsRes,
-        faqRes
-      ] = await Promise.all([
-        axios.get(`http://localhost:5000/api/products/${productId}`, config),
-        axios.get(`http://localhost:5000/api/products`, config),
-        axios.get(`http://localhost:5000/api/products/${productId}/uses`, config),
-        axios.get(`http://localhost:5000/api/products/${productId}/side-effects`, config),
-        axios.get(`http://localhost:5000/api/products/${productId}/how-it-works`, config),
-        axios.get(`http://localhost:5000/api/products/${productId}/reviews`, config),
-        axios.get(`http://localhost:5000/api/products/${productId}/faq`, config),
-      ]);
-
-      console.log('Product Response:', productRes.data);
-      console.log('All Products Response:', allProductsRes.data);
-      setProduct(productRes.data);
-      setAllProducts(allProductsRes.data);
-      setUses(usesRes.data);
-      setSideEffects(sideEffectsRes.data);
-      setWorkings(workingsRes.data);
-      setReviews(reviewsRes.data);
-      setFaq(faqRes.data);
     } catch (err) {
-      console.error('Fetch error:', err.response ? err.response.data : err.message);
-      setError('Failed to load product data');
+      setError('Failed to fetch product data');
+      console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [token]); // Dependency: token
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
+      fetchProductData(1); // Default product ID
+    }
+  }, [token, fetchProductData]);
+
+  const productData = useMemo(() => ({
+    name: product?.name || '',
+    description: product?.description || '',
+    uses: product?.uses || [],
+    sideEffects: product?.side_effects || [],
+    howItWorks: product?.workings || [],
+    reviews: product?.reviews || [],
+    faqs: product?.faqs || [],
+  }), [product]);
 
   const value = {
-    product,
+    product: productData,
     allProducts,
-    uses,
-    sideEffects,
-    workings,
-    reviews,
-    faq,
     loading,
     error,
     fetchProductData,
@@ -74,10 +57,4 @@ export const ProductProvider = ({ children }) => {
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 };
 
-export const useProduct = () => {
-  const context = useContext(ProductContext);
-  if (!context) {
-    throw new Error('useProduct must be used within a ProductProvider');
-  }
-  return context;
-};
+export const useProduct = () => useContext(ProductContext);

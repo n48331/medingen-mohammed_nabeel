@@ -1,26 +1,21 @@
 from flask import Flask
-from flask_cors import CORS  # Import CORS
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
-from models import db
-from routes import api
+from extensions import db, cache  # Import from extensions
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# Enable CORS for the app, allowing requests from http://localhost:3000
+# Initialize extensions with app
+db.init_app(app)
+cache.init_app(app, config={'CACHE_TYPE': 'simple'})  # Simple in-memory cache
+jwt = JWTManager(app)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 
-# Initialize extensions
-db.init_app(app)
-jwt = JWTManager(app)
-
-# Register blueprints
+# Import routes after app is fully initialized
+from routes import api
 app.register_blueprint(api, url_prefix='/api')
 
-# Create database tables
-with app.app_context():
-    db.create_all()
-
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(debug=True)

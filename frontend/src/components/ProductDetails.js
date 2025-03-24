@@ -5,14 +5,14 @@ import styles from "../styles/ProductDetails.module.css";
 
 const ProductDetails = () => {
   const { product, allProducts } = useProduct();
-
+  console.log(product, allProducts);
   if (!product) return null;
   const medicineDetails = {
     name: product.name,
     description: product.description,
     uses: product.uses.map((use) => use.use_text),
-    howItWorks: product.how_it_works.map((work) => work.working_text),
-    sideEffects: product.side_effects.map((effect) => effect.side_effect_text),
+    howItWorks: product.howItWorks.map((work) => work.working_text),
+    sideEffects: product.sideEffects.map((effect) => effect.side_effect_text),
   };
 
   return (
