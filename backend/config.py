@@ -1,6 +1,10 @@
+from dotenv import load_dotenv
+import os
+
 # Configuration for Flask app
+load_dotenv()
 class Config:
-    SECRET_KEY = "your-secret-key"
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://root:@localhost/medingen_db"
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    JWT_SECRET_KEY = "your-jwt-secret-key"
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")

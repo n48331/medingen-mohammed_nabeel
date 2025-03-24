@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from config import Config
 from extensions import db, cache  # Import from extensions
-
+import os
 app = Flask(__name__)
 app.config.from_object(Config)
 
