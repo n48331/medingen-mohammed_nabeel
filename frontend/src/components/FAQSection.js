@@ -1,12 +1,10 @@
 import React from 'react';
-import { IoMdArrowDown } from 'react-icons/io';
+import { RiArrowDownSLine } from "react-icons/ri";
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { useProduct } from "../context/ProductContext";
 const FAQSection = () => {
-  const faqs = [
-    { question: 'How long does it take for Paracetamol to work?', answer: 'Paracetamol usually starts working within 30 minutes to 1 hour.' },
-    { question: 'Can I take Paracetamol on an empty stomach?', answer: 'Yes, Paracetamol can be taken on an empty stomach, but taking it with food may reduce the risk of stomach upset.' },
-  ];
+    const { product } = useProduct();
+
 
   const [activeIndex, setActiveIndex] = React.useState(null);
 
@@ -17,17 +15,18 @@ const FAQSection = () => {
   return (
     <section className="bg-gray-50 p-6 rounded-lg mb-8 ">
       <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4 ">
-        Frequently Asked Questions for Paracetamol
+        Frequently Asked Questions for {product.name}
       </h2>
+      <h3 className='mb-2 font-bold'>{product.name}</h3>
       <div className="space-y-4">
-        {faqs.map((faq, index) => (
+        {product.faq.map((faq, index) => (
           <div key={index} className="border-b border-gray-200 pb-2">
             <button
               onClick={() => toggleFAQ(index)}
               className="w-full text-left flex justify-between items-center text-gray-800 font-medium"
             >
               <span className="text-sm md:text-base">{faq.question}</span>
-              <IoMdArrowDown
+              <RiArrowDownSLine 
                 className={`transform transition-transform ${
                   activeIndex === index ? "rotate-180" : ""
                 }`}

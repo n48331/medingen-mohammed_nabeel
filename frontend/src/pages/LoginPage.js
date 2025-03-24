@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Replace useHistory with useNa
 import { AuthContext } from '../context/AuthContext';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('password');
   const { login } = useContext(AuthContext);
   const navigate = useNavigate(); // Replace useHistory with useNavigate
 
