@@ -41,7 +41,6 @@ Handles API requests and database operations for Medingen.
     ```bash
     python app.py
     ```
-   ```
 
 ### **Files**
 - **`app.py`**: Main Flask app with extensions and routes.
