@@ -24,7 +24,7 @@ def login():
 
 @api.route('/products/<int:product_id>', methods=['GET'])
 @jwt_required()
-@cache.cached(timeout=300)  # Cache for 5 minutes
+@cache.cached(timeout=30)  # Cache for 30 seconds
 def get_product(product_id):
     product = Product.query.get_or_404(product_id)
     product_data = {

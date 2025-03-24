@@ -30,11 +30,14 @@ export const ProductProvider = ({ children }) => {
     }
   }, [token]);
 
-  useEffect(() => {
-    if (token) {
-      fetchProductData(1); // Default product ID
-    }
-  }, [token, fetchProductData]);
+  // useEffect(() => {
+  //   if (token) {
+  //     const productId = localStorage.getItem('selectedProductId');
+  //     if (productId) {
+  //       fetchProductData(productId);
+  //     }
+  //   }
+  // }, [token, fetchProductData]);
 
   const productData = useMemo(() => ({
     name: product?.name || '',

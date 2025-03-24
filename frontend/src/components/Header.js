@@ -2,8 +2,10 @@ import React from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { motion } from "framer-motion";
 import styles from "../styles/Header.module.css";
+import { useProduct } from "../context/ProductContext";
 
 const Header = () => {
+  const {product} = useProduct();
   const navItems = [
     { href: "/", icon: "/home.svg", text: "Home", alt: "Home" },
     { href: "/offers", icon: "/offers.svg", text: "Offers", alt: "Offers" },
@@ -66,7 +68,9 @@ const Header = () => {
         transition={{ duration: 0.5 }}
       >
         <IoIosArrowBack className={styles["header-back-icon"]} />
-        <p className={styles["header-back-text"]}>Paracetamol/acetaminophen</p>
+        <p className={styles["header-back-text"]}>{
+          product ? product.name : "Product"
+        }</p>
       </motion.div>
 
       <div className={styles["header-mobile-nav"]}>
