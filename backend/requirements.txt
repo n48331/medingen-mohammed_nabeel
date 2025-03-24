@@ -1,7 +1,0 @@
-Flask==2.0.1
-Flask-SQLAlchemy==2.5.1
-Flask-JWT-Extended==4.3.1
-mysql-connector-python==8.0.27
-Werkzeug==2.0.3
-SQLAlchemy==1.4.50
-flask-cors==4.0.1  # Add this line
