@@ -86,7 +86,7 @@ Manages UI components and interactions.
     ```bash
     pnpm run build
     ```
-
+4. Test Credetials: admin | password
 
 ### **Context API**
 #### `frontend/src/context/ProductContext.js`
