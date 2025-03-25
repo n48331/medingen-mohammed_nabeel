@@ -15,7 +15,6 @@ const ProductPage = () => {
   const { product,  loading, error, fetchProductData } = useProduct();
 
   useEffect(() => {
-    console.log('ProductPage useEffect triggered with ID:', id);
     fetchProductData(id);
   }, [id, fetchProductData]); // fetchProductData is now stable
 
@@ -26,7 +25,7 @@ const ProductPage = () => {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <main className="container mx-auto px-4 py-8">
+      <main className="main mx-auto px-4 py-8">
         <ProductDetails />
         <CompareMedicine  />
         <FAQSection />
